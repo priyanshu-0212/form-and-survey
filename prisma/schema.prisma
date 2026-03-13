@@ -1,0 +1,80 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+enum QuestionType {
+  SHORT_TEXT
+  LONG_TEXT
+  MULTIPLE_CHOICE
+  CHECKBOX
+  RATING
+  EMAIL
+}
+
+model Form {
+  id          String     @id @default(cuid())
+  title       String
+  description String?
+  slug        String     @unique
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+
+  questions  Question[]
+  responses  Response[]
+}
+
+model Question {
+  id          String       @id @default(cuid())
+  formId      String
+  type        QuestionType
+  title       String
+  description String?
+  required    Boolean      @default(false)
+  order       Int          @default(0)
+
+  /**
+   * For choice/checkbox question options.
+   * Example: ["Option A","Option B"]
+   */
+  optionsJson Json?
+
+  form     Form     @relation(fields: [formId], references: [id], onDelete: Cascade)
+  answers  Answer[]
+
+  @@index([formId])
+  @@index([formId, order])
+}
+
+model Response {
+  id        String   @id @default(cuid())
+  formId    String
+  createdAt DateTime @default(now())
+
+  form    Form     @relation(fields: [formId], references: [id], onDelete: Cascade)
+  answers Answer[]
+
+  @@index([formId])
+}
+
+model Answer {
+  id         String   @id @default(cuid())
+  responseId String
+  questionId String
+  valueJson  Json
+
+  response Response @relation(fields: [responseId], references: [id], onDelete: Cascade)
+  question Question @relation(fields: [questionId], references: [id], onDelete: Cascade)
+
+  @@index([responseId])
+  @@index([questionId])
+}

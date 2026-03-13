@@ -1,26 +1,68 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --ff-bg: #ffffff;
+  --ff-fg: #0b1020;
+  --ff-muted: #55607a;
+  --ff-border: rgba(15, 23, 42, 0.10);
+  --ff-card: rgba(255, 255, 255, 0.8);
+  --ff-shadow: 0 20px 60px rgba(10, 14, 28, 0.10);
+  --ff-shadow-sm: 0 10px 30px rgba(10, 14, 28, 0.08);
+
+  --ff-accent-1: #7c3aed; /* purple */
+  --ff-accent-2: #2563eb; /* blue */
+  --ff-accent-3: #ec4899; /* pink */
+
+  --ff-radius: 18px;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
+  --color-background: var(--ff-bg);
+  --color-foreground: var(--ff-fg);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+body {
+  background: var(--ff-bg);
+  color: var(--ff-fg);
+  font-family: var(--font-geist-sans), ui-sans-serif, system-ui, -apple-system,
+    Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* Subtle animated gradient backdrop */
+.ff-bg-gradient {
+  background:
+    radial-gradient(800px circle at 20% 10%, rgba(124, 58, 237, 0.14), transparent 55%),
+    radial-gradient(900px circle at 80% 20%, rgba(37, 99, 235, 0.12), transparent 55%),
+    radial-gradient(900px circle at 50% 90%, rgba(236, 72, 153, 0.12), transparent 55%),
+    linear-gradient(to bottom, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0.96));
+}
+
+.ff-card {
+  border: 1px solid var(--ff-border);
+  border-radius: var(--ff-radius);
+  background: var(--ff-card);
+  box-shadow: var(--ff-shadow-sm);
+  backdrop-filter: blur(10px);
+}
+
+.ff-focus-ring {
+  outline: none;
+  box-shadow: 0 0 0 4px rgba(124, 58, 237, 0.18);
+}
+
+.ff-gradient-text {
+  background: linear-gradient(90deg, var(--ff-accent-1), var(--ff-accent-2), var(--ff-accent-3));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    scroll-behavior: auto !important;
+    transition-duration: 0ms !important;
+    animation-duration: 0ms !important;
+  }
 }

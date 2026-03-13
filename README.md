@@ -1,3 +1,30 @@
+# FormFlow AI
+
+Modern AI-powered form & survey builder (Typeform/Tally-inspired).
+
+## Run locally
+
+```bash
+npm install
+npx prisma migrate dev
+npm run dev
+```
+
+Then open `http://localhost:3000`.
+
+## What’s included
+
+- Landing page (`/`)
+- Dashboard + CRUD (`/dashboard`)
+- Form builder with drag & drop (`/dashboard/forms/:id/edit`)
+- Public shareable form link (`/f/:slug`)
+- Response table + AI insights (`/dashboard/forms/:id/responses`)
+
+## Environment
+
+- `DATABASE_URL` (already set in `.env`): `file:./dev.db`
+- Optional `NEXT_PUBLIC_BASE_URL` for accurate “Copy link” URLs (defaults to `http://localhost:3000`)
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started
@@ -34,3 +61,4 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+# form-and-survey
